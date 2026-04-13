@@ -21,23 +21,24 @@ html, body{
   overflow:hidden;
   position:fixed;
   font-family:'Inter',sans-serif;
+  background:#000;
 }
 
-/* ================= INTRO ================= */
+/* 🌸 INTRO */
 #intro{
   position:fixed;
   inset:0;
-  background:#000;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  background:#000;
   z-index:10;
   transition:0.8s ease;
 }
 
 .flower{
-  font-size:75px;
+  font-size:70px;
   color:#fff;
   animation:float 2.5s infinite ease-in-out;
 }
@@ -54,16 +55,14 @@ html, body{
   color:#aaa;
 }
 
-/* ================= INVITE BACKGROUND ================= */
+/* 💍 INVITE (IMAGE BACKGROUND) */
 #invite{
   position:fixed;
   inset:0;
 
-  /* 💍 IMAGE AS BACKGROUND */
   background-image:url("https://i.imgur.com/376gkH5.jpeg");
   background-size:cover;
   background-position:center;
-  background-repeat:no-repeat;
 
   display:flex;
   flex-direction:column;
@@ -77,7 +76,7 @@ html, body{
   pointer-events:none;
 }
 
-/* DARK OVERLAY FOR TEXT READABILITY */
+/* DARK OVERLAY FOR READABILITY */
 #invite::before{
   content:"";
   position:absolute;
@@ -86,25 +85,25 @@ html, body{
   z-index:0;
 }
 
-#invite.show{
-  opacity:1;
-  transform:scale(1);
-  pointer-events:auto;
-}
-
-/* CONTENT ALWAYS ABOVE IMAGE */
+/* CONTENT ABOVE IMAGE */
 #invite > *{
   position:relative;
   z-index:2;
   color:#fff;
 }
 
-/* ================= TEXT ================= */
+#invite.show{
+  opacity:1;
+  transform:scale(1);
+  pointer-events:auto;
+}
+
+/* TEXT */
 .title{
   font-family:'Playfair Display',serif;
   font-size:38px;
   letter-spacing:6px;
-  text-shadow:0 2px 20px rgba(0,0,0,0.8);
+  text-shadow:0 2px 15px rgba(0,0,0,0.8);
 }
 
 .sub{
@@ -140,7 +139,7 @@ html, body{
   text-decoration:none;
 }
 
-/* MUSIC */
+/* 🎶 MUSIC BUTTON */
 .music{
   position:fixed;
   top:12px;
@@ -157,7 +156,7 @@ html, body{
 
 <body>
 
-<!-- 🎶 MUSIC -->
+<!-- 🎶 AUDIO -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6c1b1f3.mp3">
 </audio>
@@ -188,13 +187,23 @@ html, body{
   <a class="rsvp" href="#">Confirm Attendance</a>
 </div>
 
-<!-- SWIPE LOGIC -->
+<!-- 💍 SWIPE + MUSIC FIX -->
 <script>
 let startY = 0;
 
 const intro = document.getElementById("intro");
 const invite = document.getElementById("invite");
 const music = document.getElementById("music");
+
+function unlockMusic(){
+  music.volume = 0.6;
+  music.play().catch(()=>{});
+}
+
+/* 🔓 unlock audio on FIRST interaction */
+window.addEventListener("touchstart", ()=>{
+  unlockMusic();
+}, {once:true});
 
 window.addEventListener("touchstart", e=>{
   startY = e.touches[0].clientY;
@@ -211,8 +220,6 @@ window.addEventListener("touchend", e=>{
       intro.style.display = "none";
       invite.classList.add("show");
     }, 500);
-
-    music.play().catch(()=>{});
   }
 });
 </script>
