@@ -10,7 +10,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 body {
@@ -21,52 +21,53 @@ body {
 
 /* 🌸 INTRO SCREEN */
 #intro {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100%;
   background: #000;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  transition: transform 0.8s ease;
-  position: absolute;
-  top: 0;
-  left: 0;
+  transition: transform 0.9s ease;
 }
 
 .flower {
-  font-size: 70px;
+  font-size: 72px;
+  color: #fff;
+  animation: bloom 2.2s infinite ease-in-out;
   filter: grayscale(100%);
-  animation: bloom 2s infinite ease-in-out;
 }
 
 @keyframes bloom {
-  0% { transform: scale(0.95); opacity: 0.7; }
+  0% { transform: scale(0.95); opacity: 0.6; }
   50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.7; }
+  100% { transform: scale(0.95); opacity: 0.6; }
 }
 
 .swipe {
-  margin-top: 20px;
-  font-size: 13px;
-  color: #bbb;
-  letter-spacing: 1px;
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #aaa;
 }
 
 /* 💍 INVITATION SCREEN */
 #invite {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100%;
   background: #000;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  flex-direction: column;
-  padding: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  padding: 25px;
 }
 
 .hidden {
@@ -74,29 +75,35 @@ body {
 }
 
 h1 {
-  font-size: 28px;
-  letter-spacing: 2px;
+  font-size: 30px;
+  letter-spacing: 3px;
   margin-bottom: 10px;
 }
 
-p {
-  color: #ccc;
-  margin: 6px 0;
+.sub {
+  font-size: 13px;
+  color: #bbb;
+  margin-bottom: 20px;
+}
+
+.details {
   font-size: 14px;
+  color: #ddd;
+  line-height: 1.8;
 }
 
 .quote {
-  margin-top: 20px;
-  font-style: italic;
-  color: #888;
+  margin-top: 25px;
   font-size: 13px;
+  color: #888;
+  font-style: italic;
   max-width: 80%;
 }
 
 /* MOBILE OPTIMIZATION */
-@media screen and (min-width: 768px) {
+@media (min-width: 768px) {
   body::before {
-    content: "Open on mobile for best experience";
+    content: "Open this invitation on mobile for best experience";
     position: fixed;
     top: 0;
     left: 0;
@@ -124,10 +131,14 @@ p {
 
 <!-- 💍 INVITATION -->
 <div id="invite" class="hidden">
-  <h1>ELENA & MARK</h1>
-  <p>Together with their families</p>
-  <p>June 15, 2026</p>
-  <p>Manila Cathedral</p>
+  <h1>ARIANE & ALDEN</h1>
+  <div class="sub">Together with their families</div>
+
+  <div class="details">
+    📅 June 15, 2026<br>
+    🕒 3:00 PM<br>
+    📍 Manila Cathedral
+  </div>
 
   <div class="quote">
     “Two hearts, one love, forever begins here.”
@@ -140,12 +151,11 @@ let invite = document.getElementById("invite");
 
 let startY = 0;
 
-// touch swipe detection
-window.addEventListener("touchstart", function(e){
+window.addEventListener("touchstart", (e) => {
   startY = e.touches[0].clientY;
 });
 
-window.addEventListener("touchend", function(e){
+window.addEventListener("touchend", (e) => {
   let endY = e.changedTouches[0].clientY;
 
   if (startY > endY + 50) {
