@@ -3,26 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ariane & Alden Wedding</title>
+<title>Ariane & Alden Wedding Invitation</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
   height:100vh;
   overflow:hidden;
   background:#000;
   color:#fff;
-  font-family:'Inter', sans-serif;
+  font-family:'Inter',sans-serif;
 }
 
-/* FLOATING PARTICLES */
 .particle{
   position:absolute;
   width:6px;
@@ -38,7 +33,6 @@ body{
   to{transform:translateY(-10vh);opacity:0.6;}
 }
 
-/* INTRO */
 #intro{
   position:fixed;
   inset:0;
@@ -57,9 +51,9 @@ body{
 }
 
 @keyframes float{
-  0%{transform:scale(0.95) rotate(0deg);}
-  50%{transform:scale(1.15) rotate(8deg);}
-  100%{transform:scale(0.95) rotate(0deg);}
+  0%{transform:scale(0.95) rotate(0deg);opacity:0.5;}
+  50%{transform:scale(1.15) rotate(8deg);opacity:1;}
+  100%{transform:scale(0.95) rotate(0deg);opacity:0.5;}
 }
 
 .swipe{
@@ -75,7 +69,6 @@ body{
   50%{opacity:1;}
 }
 
-/* INVITE */
 #invite{
   position:fixed;
   inset:0;
@@ -87,34 +80,26 @@ body{
   text-align:center;
   padding:30px;
   opacity:0;
-  transform:translateY(30px) scale(0.98);
-  transition:1.2s ease;
+  transform:translateY(30px);
+  transition:1s ease;
 }
 
 #invite.show{
   opacity:1;
-  transform:translateY(0) scale(1);
+  transform:translateY(0);
 }
 
 .title{
-  font-family:'Playfair Display', serif;
+  font-family:'Playfair Display',serif;
   font-size:34px;
   letter-spacing:6px;
   margin-bottom:8px;
-  animation:fadeDown 1.2s ease;
 }
 
 .sub{
   font-size:12px;
   color:#aaa;
-  letter-spacing:2px;
   margin-bottom:15px;
-  animation:fadeDown 1.5s ease;
-}
-
-@keyframes fadeDown{
-  from{opacity:0; transform:translateY(-10px);}
-  to{opacity:1; transform:translateY(0);}
 }
 
 .image{
@@ -125,13 +110,6 @@ body{
   margin:15px 0;
   filter:grayscale(100%);
   border:1px solid #333;
-  box-shadow:0 15px 40px rgba(0,0,0,0.8);
-  animation:zoomIn 1.5s ease;
-}
-
-@keyframes zoomIn{
-  from{transform:scale(0.8); opacity:0;}
-  to{transform:scale(1); opacity:1;}
 }
 
 .divider{
@@ -148,12 +126,6 @@ body{
   background:rgba(255,255,255,0.05);
   padding:18px;
   border-radius:12px;
-  animation:fadeIn 2s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;}
-  to{opacity:1;}
 }
 
 .quote{
@@ -161,7 +133,6 @@ body{
   font-style:italic;
   color:#777;
   font-size:13px;
-  animation:fadeIn 2.5s ease;
 }
 
 .rsvp{
@@ -170,24 +141,23 @@ body{
   border:1px solid #fff;
   border-radius:30px;
   font-size:12px;
-  letter-spacing:2px;
   color:#fff;
   text-decoration:none;
-  transition:0.3s;
-  animation:pulse 2s infinite;
 }
 
-@keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.05);}
+.music-btn{
+  position:fixed;
+  top:15px;
+  right:15px;
+  background:#111;
+  border:1px solid #333;
+  color:#fff;
+  padding:8px 10px;
+  border-radius:20px;
+  font-size:11px;
+  z-index:20;
 }
 
-.rsvp:hover{
-  background:#fff;
-  color:#000;
-}
-
-/* MOBILE ONLY */
 @media(min-width:768px){
 body::before{
   content:"Open on mobile for best experience";
@@ -206,7 +176,11 @@ body::before{
 
 <body>
 
-<!-- FLOATING PARTICLES -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6c1b1f3.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" onclick="document.getElementById('bgMusic').play()">Play 🎶</button>
+
 <script>
 for(let i=0;i<25;i++){
   let p=document.createElement('div');
@@ -217,18 +191,16 @@ for(let i=0;i<25;i++){
 }
 </script>
 
-<!-- INTRO -->
 <div id="intro">
   <div class="flower">❀</div>
   <div class="swipe">SWIPE UP TO OPEN</div>
 </div>
 
-<!-- INVITE -->
 <div id="invite">
   <div class="title">ARIANE & ALDEN</div>
   <div class="sub">together with their families</div>
 
-  <img class="image" src="https://i.imgur.com/376gkH5.jpeg" alt="Wedding Photo">
+  <img class="image" src="https://i.imgur.com/376gkH5.jpeg" alt="Wedding">
 
   <div class="divider"></div>
 
@@ -238,31 +210,24 @@ for(let i=0;i<25;i++){
     📍 Manila Cathedral
   </div>
 
-  <div class="quote">“Two hearts, one love, forever begins here.”</div>
+  <div class="quote">Two hearts, one love, forever begins here.</div>
 
-  <a class="rsvp" href="#">RSVP</a>
+  <a class="rsvp" href="https://docs.google.com/forms/" target="_blank">Confirm Attendance</a>
 </div>
 
 <script>
-let startY = 0;
-const intro = document.getElementById("intro");
-const invite = document.getElementById("invite");
+let startY=0;
+const intro=document.getElementById('intro');
+const invite=document.getElementById('invite');
 
-window.addEventListener("touchstart", e=>{
-  startY = e.touches[0].clientY;
-});
-
-window.addEventListener("touchend", e=>{
-  let endY = e.changedTouches[0].clientY;
-
-  if(startY > endY + 50){
-    intro.style.transform = "translateY(-100%)";
-    intro.style.opacity = "0";
-
-    setTimeout(()=>{
-      invite.classList.add("show");
-    }, 700);
-  }
+window.addEventListener('touchstart',e=>startY=e.touches[0].clientY);
+window.addEventListener('touchend',e=>{
+let endY=e.changedTouches[0].clientY;
+if(startY>endY+50){
+intro.style.transform='translateY(-100%)';
+intro.style.opacity='0';
+setTimeout(()=>invite.classList.add('show'),700);
+}
 });
 </script>
 
