@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Wedding Invitation</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+}
+
+/* 🌸 INTRO SCREEN */
+#intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.9s ease;
+}
+
+.flower {
+  font-size: 72px;
+  color: #fff;
+  animation: bloom 2.2s infinite ease-in-out;
+  filter: grayscale(100%);
+}
+
+@keyframes bloom {
+  0% { transform: scale(0.95); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.6; }
+}
+
+.swipe {
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #aaa;
+}
+
+/* 💍 INVITATION SCREEN */
+#invite {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 25px;
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  font-size: 30px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.sub {
+  font-size: 13px;
+  color: #bbb;
+  margin-bottom: 20px;
+}
+
+.details {
+  font-size: 14px;
+  color: #ddd;
+  line-height: 1.8;
+}
+
+.quote {
+  margin-top: 25px;
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+  max-width: 80%;
+}
+
+/* MOBILE OPTIMIZATION */
+@media (min-width: 768px) {
+  body::before {
+    content: "Open this invitation on mobile for best experience";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    z-index: 9999;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🌸 INTRO -->
+<div id="intro">
+  <div class="flower">❀</div>
+  <div class="swipe">SWIPE UP TO OPEN</div>
+</div>
+
+<!-- 💍 INVITATION -->
+<div id="invite" class="hidden">
+  <h1>ARIANE & ALDEN</h1>
+  <div class="sub">Together with their families</div>
+
+  <div class="details">
+    📅 June 15, 2026<br>
+    🕒 3:00 PM<br>
+    📍 Manila Cathedral
+  </div>
+
+  <div class="quote">
+    “Two hearts, one love, forever begins here.”
+  </div>
+</div>
+
+<script>
+let intro = document.getElementById("intro");
+let invite = document.getElementById("invite");
+
+let startY = 0;
+
+window.addEventListener("touchstart", (e) => {
+  startY = e.touches[0].clientY;
+});
+
+window.addEventListener("touchend", (e) => {
+  let endY = e.changedTouches[0].clientY;
+
+  if (startY > endY + 50) {
+    intro.style.transform = "translateY(-100vh)";
+    setTimeout(() => {
+      invite.classList.remove("hidden");
+    }, 500);
+  }
+});
+</script>
+
+</body>
+</html>
