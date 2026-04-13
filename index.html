@@ -14,7 +14,7 @@
   box-sizing:border-box;
 }
 
-/* 🚨 LOCK SCROLL COMPLETELY */
+/* 🚨 FULL LOCK (NO SCROLL) */
 html, body{
   width:100%;
   height:100%;
@@ -25,15 +25,45 @@ html, body{
   font-family:'Inter',sans-serif;
 }
 
-/* 🌫 FLOATING PARTICLES */
+/* 🌫 CINEMATIC BACKGROUND */
+body{
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 60%),
+    radial-gradient(circle at bottom, rgba(255,255,255,0.05), transparent 70%),
+    linear-gradient(180deg, #050505, #000);
+}
+
+/* 🌫 FLOATING LIGHT ORBS */
+.orb{
+  position:fixed;
+  width:140px;
+  height:140px;
+  background:rgba(255,255,255,0.04);
+  border-radius:50%;
+  filter:blur(35px);
+  animation:floatOrb 14s infinite ease-in-out;
+  pointer-events:none;
+}
+
+.orb:nth-child(1){top:10%;left:10%;}
+.orb:nth-child(2){top:70%;left:20%;animation-duration:18s;}
+.orb:nth-child(3){top:40%;left:80%;animation-duration:16s;}
+.orb:nth-child(4){top:80%;left:70%;animation-duration:20s;}
+
+@keyframes floatOrb{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-30px) scale(1.2);}
+}
+
+/* 🌫 PARTICLES */
 .particle{
   position:fixed;
   width:6px;
   height:6px;
   background:#fff;
   border-radius:50%;
-  opacity:0.12;
-  animation:floatUp 10s linear infinite;
+  opacity:0.1;
+  animation:floatUp 12s linear infinite;
 }
 
 @keyframes floatUp{
@@ -92,12 +122,6 @@ html, body{
 #invite{
   position:fixed;
   inset:0;
-
-  background:
-    radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 60%),
-    radial-gradient(circle at bottom, rgba(255,255,255,0.04), transparent 70%),
-    #000;
-
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -106,12 +130,41 @@ html, body{
   padding:30px;
 
   opacity:0;
-  transform:translateY(40px);
-  transition:1s ease;
+  transform:translateY(30px);
+  transition:1.2s ease;
   pointer-events:none;
 }
 
-/* texture */
+#invite.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+  animation:softBreath 6s ease-in-out infinite;
+}
+
+/* CONTENT ANIMATION */
+.title, .sub, .image, .details, .quote, .rsvp{
+  opacity:0;
+  transform:translateY(15px);
+  animation:fadeUp 1s ease forwards;
+}
+
+.sub{animation-delay:0.3s;}
+.image{animation-delay:0.6s;}
+.details{animation-delay:0.9s;}
+.quote{animation-delay:1.2s;}
+.rsvp{animation-delay:1.5s;}
+
+@keyframes fadeUp{
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes softBreath{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.01);}
+}
+
+/* TEXTURE */
 #invite::after{
   content:"";
   position:absolute;
@@ -120,13 +173,7 @@ html, body{
   opacity:0.08;
 }
 
-#invite.show{
-  opacity:1;
-  transform:translateY(0);
-  pointer-events:auto;
-}
-
-/* CONTENT */
+/* TEXT */
 .title{
   font-family:'Playfair Display',serif;
   font-size:34px;
@@ -139,13 +186,14 @@ html, body{
   margin-bottom:15px;
 }
 
+/* IMAGE FIX */
 .image{
   width:260px;
   max-width:90%;
   height:auto;
   border-radius:18px;
   margin:15px 0;
-  filter:grayscale(100%);
+  filter:grayscale(100%) contrast(130%) brightness(85%);
   border:1px solid #333;
 }
 
@@ -182,7 +230,7 @@ html, body{
   text-decoration:none;
 }
 
-/* MUSIC BUTTON */
+/* MUSIC */
 .music{
   position:fixed;
   top:15px;
@@ -198,6 +246,12 @@ html, body{
 </head>
 
 <body>
+
+<!-- 🌫 ORBS -->
+<div class="orb"></div>
+<div class="orb"></div>
+<div class="orb"></div>
+<div class="orb"></div>
 
 <!-- 🎶 MUSIC -->
 <audio id="bgMusic" loop>
@@ -262,10 +316,9 @@ document.addEventListener("click", e=>{
   </a>
 </div>
 
-<!-- SWIPE LOGIC -->
+<!-- SWIPE -->
 <script>
 let startY = 0;
-
 const intro = document.getElementById("intro");
 const invite = document.getElementById("invite");
 const music = document.getElementById("bgMusic");
@@ -278,9 +331,8 @@ window.addEventListener("touchend", e=>{
   let endY = e.changedTouches[0].clientY;
 
   if(startY > endY + 50){
-
     intro.style.opacity = "0";
-    intro.style.transform = "scale(1.1)";
+    intro.style.transform = "scale(1.2)";
 
     setTimeout(()=>{
       invite.classList.add("show");
