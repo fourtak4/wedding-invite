@@ -51,9 +51,9 @@ body{
 }
 
 @keyframes float{
-  0%{transform:scale(0.95) rotate(0deg);opacity:0.5;}
-  50%{transform:scale(1.15) rotate(8deg);opacity:1;}
-  100%{transform:scale(0.95) rotate(0deg);opacity:0.5;}
+  0%{transform:scale(0.95);}
+  50%{transform:scale(1.15);}
+  100%{transform:scale(0.95);}
 }
 
 .swipe{
@@ -61,12 +61,6 @@ body{
   font-size:11px;
   letter-spacing:3px;
   color:#aaa;
-  animation:blink 2s infinite;
-}
-
-@keyframes blink{
-  0%,100%{opacity:0.3;}
-  50%{opacity:1;}
 }
 
 #invite{
@@ -93,7 +87,6 @@ body{
   font-family:'Playfair Display',serif;
   font-size:34px;
   letter-spacing:6px;
-  margin-bottom:8px;
 }
 
 .sub{
@@ -102,10 +95,11 @@ body{
   margin-bottom:15px;
 }
 
+/* FIXED IMAGE (NO CROP) */
 .image{
-  width:240px;
-  height:240px;
-  object-fit:cover;
+  width:260px;
+  max-width:90%;
+  height:auto;
   border-radius:18px;
   margin:15px 0;
   filter:grayscale(100%);
@@ -145,19 +139,6 @@ body{
   text-decoration:none;
 }
 
-.music-btn{
-  position:fixed;
-  top:15px;
-  right:15px;
-  background:#111;
-  border:1px solid #333;
-  color:#fff;
-  padding:8px 10px;
-  border-radius:20px;
-  font-size:11px;
-  z-index:20;
-}
-
 @media(min-width:768px){
 body::before{
   content:"Open on mobile for best experience";
@@ -176,10 +157,17 @@ body::before{
 
 <body>
 
-<audio id="bgMusic" loop>
+<!-- MUSIC AUTO PLAY -->
+<audio id="bgMusic" autoplay loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6c1b1f3.mp3" type="audio/mpeg">
 </audio>
-<button class="music-btn" onclick="document.getElementById('bgMusic').play()">Play 🎶</button>
+
+<script>
+// force autoplay on mobile after first interaction
+window.addEventListener("touchstart", function(){
+  document.getElementById("bgMusic").play();
+}, {once:true});
+</script>
 
 <script>
 for(let i=0;i<25;i++){
@@ -193,7 +181,7 @@ for(let i=0;i<25;i++){
 
 <div id="intro">
   <div class="flower">❀</div>
-  <div class="swipe">SWIPE UP TO OPEN</div>
+  <div class="swipe">SWIPE UP</div>
 </div>
 
 <div id="invite">
@@ -207,7 +195,7 @@ for(let i=0;i<25;i++){
   <div class="details">
     📅 January 4, 2027<br>
     🕒 9:00 AM<br>
-    📍 Manila Cathedral
+    📍 Rockwell
   </div>
 
   <div class="quote">Two hearts, one love, forever begins here.</div>
