@@ -3,167 +3,159 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Wedding Invitation</title>
+<title>Ariane & Alden Wedding</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Arial", sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  overflow:hidden;
+  background:#000;
+  color:#fff;
+  font-family:'Inter',sans-serif;
 }
 
-body {
-  overflow: hidden;
-  background: #000;
-  color: #fff;
+#intro{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle,#111,#000);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  transition:transform 1s ease;
 }
 
-/* 🌸 INTRO SCREEN */
-#intro {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  background: #000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.9s ease;
+.flower{
+  font-size:80px;
+  animation:bloom 2.5s infinite ease-in-out;
+  filter:grayscale(100%);
 }
 
-.flower {
-  font-size: 72px;
-  color: #fff;
-  animation: bloom 2.2s infinite ease-in-out;
-  filter: grayscale(100%);
+@keyframes bloom{
+  0%{transform:scale(0.95);opacity:0.5;}
+  50%{transform:scale(1.15);opacity:1;}
+  100%{transform:scale(0.95);opacity:0.5;}
 }
 
-@keyframes bloom {
-  0% { transform: scale(0.95); opacity: 0.6; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.6; }
+.swipe{
+  margin-top:18px;
+  font-size:11px;
+  letter-spacing:3px;
+  color:#aaa;
 }
 
-.swipe {
-  margin-top: 18px;
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: #aaa;
+#invite{
+  position:absolute;
+  inset:0;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
 }
 
-/* 💍 INVITATION SCREEN */
-#invite {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  background: #000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 25px;
+.hidden{display:none;}
+
+.title{
+  font-family:'Playfair Display',serif;
+  font-size:34px;
+  letter-spacing:2px;
+  margin-bottom:10px;
 }
 
-.hidden {
-  display: none;
+.sub{
+  font-size:13px;
+  color:#bbb;
+  margin-bottom:25px;
 }
 
-h1 {
-  font-size: 30px;
-  letter-spacing: 3px;
-  margin-bottom: 10px;
+.details{
+  font-size:14px;
+  color:#ddd;
+  line-height:1.9;
+  background:rgba(255,255,255,0.05);
+  padding:18px 22px;
+  border-radius:12px;
 }
 
-.sub {
-  font-size: 13px;
-  color: #bbb;
-  margin-bottom: 20px;
+.quote{
+  margin-top:25px;
+  font-style:italic;
+  color:#888;
+  font-size:13px;
 }
 
-.details {
-  font-size: 14px;
-  color: #ddd;
-  line-height: 1.8;
+.rsvp{
+  margin-top:30px;
+  padding:12px 22px;
+  border:1px solid #fff;
+  border-radius:30px;
+  font-size:12px;
+  letter-spacing:2px;
+  color:#fff;
+  text-decoration:none;
 }
 
-.quote {
-  margin-top: 25px;
-  font-size: 13px;
-  color: #888;
-  font-style: italic;
-  max-width: 80%;
+.rsvp:hover{
+  background:#fff;
+  color:#000;
 }
 
-/* MOBILE OPTIMIZATION */
-@media (min-width: 768px) {
-  body::before {
-    content: "Open this invitation on mobile for best experience";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    z-index: 9999;
-  }
+@media(min-width:768px){
+body::before{
+  content:"Open on mobile for best experience";
+  position:fixed;
+  inset:0;
+  background:#000;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🌸 INTRO -->
 <div id="intro">
   <div class="flower">❀</div>
   <div class="swipe">SWIPE UP TO OPEN</div>
 </div>
 
-<!-- 💍 INVITATION -->
 <div id="invite" class="hidden">
-  <h1>ARIANE & ALDEN</h1>
+  <div class="title">ARIANE & ALDEN</div>
   <div class="sub">Together with their families</div>
 
   <div class="details">
-    📅 June 15, 2026<br>
-    🕒 3:00 PM<br>
-    📍 Manila Cathedral
+    📅 January 4, 2027<br>
+    🕒 9:00 AM<br>
+    📍 Rockwell
   </div>
 
-  <div class="quote">
-    “Two hearts, one love, forever begins here.”
-  </div>
+  <div class="quote">“Two hearts, one love, forever begins here.”</div>
+
+  <a href="#" class="rsvp">RSVP</a>
 </div>
 
 <script>
-let intro = document.getElementById("intro");
-let invite = document.getElementById("invite");
+let intro=document.getElementById('intro');
+let invite=document.getElementById('invite');
+let startY=0;
 
-let startY = 0;
-
-window.addEventListener("touchstart", (e) => {
-  startY = e.touches[0].clientY;
-});
-
-window.addEventListener("touchend", (e) => {
-  let endY = e.changedTouches[0].clientY;
-
-  if (startY > endY + 50) {
-    intro.style.transform = "translateY(-100vh)";
-    setTimeout(() => {
-      invite.classList.remove("hidden");
-    }, 500);
-  }
+window.addEventListener('touchstart',e=>{startY=e.touches[0].clientY;});
+window.addEventListener('touchend',e=>{
+let endY=e.changedTouches[0].clientY;
+if(startY>endY+50){
+intro.style.transform='translateY(-100vh)';
+setTimeout(()=>invite.classList.remove('hidden'),600);
+}
 });
 </script>
 
