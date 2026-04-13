@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ariane & Alden Wedding Invitation</title>
+<title>Ariane & Alden Wedding</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -18,6 +18,7 @@ body{
   font-family:'Inter',sans-serif;
 }
 
+/* PARTICLES */
 .particle{
   position:absolute;
   width:6px;
@@ -33,6 +34,7 @@ body{
   to{transform:translateY(-10vh);opacity:0.6;}
 }
 
+/* INTRO */
 #intro{
   position:fixed;
   inset:0;
@@ -41,7 +43,7 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  transition:all 1s ease;
+  transition:1s ease;
   z-index:10;
 }
 
@@ -63,10 +65,16 @@ body{
   color:#aaa;
 }
 
+/* INVITE WITH BEAUTIFUL BACKGROUND */
 #invite{
   position:fixed;
   inset:0;
-  background:#000;
+
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 60%),
+    radial-gradient(circle at bottom, rgba(255,255,255,0.04), transparent 70%),
+    #000;
+
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -76,6 +84,15 @@ body{
   opacity:0;
   transform:translateY(30px);
   transition:1s ease;
+}
+
+#invite::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+  opacity:0.08;
+  pointer-events:none;
 }
 
 #invite.show{
@@ -95,7 +112,7 @@ body{
   margin-bottom:15px;
 }
 
-/* FIXED IMAGE (NO CROP) */
+/* IMAGE FIXED */
 .image{
   width:260px;
   max-width:90%;
@@ -139,6 +156,7 @@ body{
   text-decoration:none;
 }
 
+/* MOBILE ONLY */
 @media(min-width:768px){
 body::before{
   content:"Open on mobile for best experience";
@@ -157,18 +175,12 @@ body::before{
 
 <body>
 
-<!-- MUSIC AUTO PLAY -->
-<audio id="bgMusic" autoplay loop>
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6c1b1f3.mp3" type="audio/mpeg">
 </audio>
 
-<script>
-// force autoplay on mobile after first interaction
-window.addEventListener("touchstart", function(){
-  document.getElementById("bgMusic").play();
-}, {once:true});
-</script>
-
+<!-- PARTICLES -->
 <script>
 for(let i=0;i<25;i++){
   let p=document.createElement('div');
@@ -179,43 +191,58 @@ for(let i=0;i<25;i++){
 }
 </script>
 
+<!-- INTRO -->
 <div id="intro">
   <div class="flower">❀</div>
   <div class="swipe">SWIPE UP</div>
 </div>
 
+<!-- INVITE -->
 <div id="invite">
   <div class="title">ARIANE & ALDEN</div>
   <div class="sub">together with their families</div>
 
-  <img class="image" src="https://i.imgur.com/376gkH5.jpeg" alt="Wedding">
+  <img class="image" src="https://i.imgur.com/376gkH5.jpeg">
 
   <div class="divider"></div>
 
   <div class="details">
     📅 January 4, 2027<br>
     🕒 9:00 AM<br>
-    📍 Rockwell
+    📍 Manila Cathedral
   </div>
 
   <div class="quote">Two hearts, one love, forever begins here.</div>
 
-  <a class="rsvp" href="https://docs.google.com/forms/" target="_blank">Confirm Attendance</a>
+  <a class="rsvp" href="https://docs.google.com/forms/" target="_blank">
+    Confirm Attendance
+  </a>
 </div>
 
 <script>
-let startY=0;
-const intro=document.getElementById('intro');
-const invite=document.getElementById('invite');
+let startY = 0;
+const intro = document.getElementById("intro");
+const invite = document.getElementById("invite");
+const music = document.getElementById("bgMusic");
 
-window.addEventListener('touchstart',e=>startY=e.touches[0].clientY);
-window.addEventListener('touchend',e=>{
-let endY=e.changedTouches[0].clientY;
-if(startY>endY+50){
-intro.style.transform='translateY(-100%)';
-intro.style.opacity='0';
-setTimeout(()=>invite.classList.add('show'),700);
-}
+window.addEventListener("touchstart", e=>{
+  startY = e.touches[0].clientY;
+});
+
+window.addEventListener("touchend", e=>{
+  let endY = e.changedTouches[0].clientY;
+
+  if(startY > endY + 50){
+    intro.style.transform = "translateY(-100%)";
+    intro.style.opacity = "0";
+
+    // PLAY MUSIC AFTER SWIPE
+    music.play().catch(()=>{});
+
+    setTimeout(()=>{
+      invite.classList.add("show");
+    }, 700);
+  }
 });
 </script>
 
