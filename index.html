@@ -14,14 +14,12 @@
   box-sizing:border-box;
 }
 
-/* 🚨 TRUE LOCK (NO SCROLL ANYWHERE) */
+/* 🚨 LOCK SCROLL COMPLETELY */
 html, body{
   width:100%;
   height:100%;
   overflow:hidden;
   position:fixed;
-  overscroll-behavior:none;
-  touch-action:none;
   background:#000;
   color:#fff;
   font-family:'Inter',sans-serif;
@@ -59,7 +57,7 @@ html, body{
   100%{transform:scale(3);opacity:0;}
 }
 
-/* INTRO SCREEN */
+/* ================= INTRO ================= */
 #intro{
   position:fixed;
   inset:0;
@@ -90,10 +88,11 @@ html, body{
   color:#aaa;
 }
 
-/* INVITE */
+/* ================= INVITE ================= */
 #invite{
   position:fixed;
   inset:0;
+
   background:
     radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 60%),
     radial-gradient(circle at bottom, rgba(255,255,255,0.04), transparent 70%),
@@ -107,25 +106,27 @@ html, body{
   padding:30px;
 
   opacity:0;
-  transform:scale(0.98);
-  transition:1.2s ease;
+  transform:translateY(40px);
+  transition:1s ease;
+  pointer-events:none;
 }
 
-/* texture overlay */
+/* texture */
 #invite::after{
   content:"";
   position:absolute;
   inset:0;
   background-image:url('https://www.transparenttextures.com/patterns/asfalt-light.png');
   opacity:0.08;
-  pointer-events:none;
 }
 
 #invite.show{
   opacity:1;
-  transform:scale(1);
+  transform:translateY(0);
+  pointer-events:auto;
 }
 
+/* CONTENT */
 .title{
   font-family:'Playfair Display',serif;
   font-size:34px;
@@ -181,6 +182,7 @@ html, body{
   text-decoration:none;
 }
 
+/* MUSIC BUTTON */
 .music{
   position:fixed;
   top:15px;
@@ -232,13 +234,13 @@ document.addEventListener("click", e=>{
 });
 </script>
 
-<!-- INTRO -->
+<!-- 🌸 INTRO -->
 <div id="intro">
   <div class="flower">❀</div>
   <div class="swipe">SWIPE UP</div>
 </div>
 
-<!-- INVITE -->
+<!-- 💍 INVITE -->
 <div id="invite">
   <div class="title">ARIANE & ALDEN</div>
   <div class="sub">together with their families</div>
@@ -260,8 +262,10 @@ document.addEventListener("click", e=>{
   </a>
 </div>
 
+<!-- SWIPE LOGIC -->
 <script>
 let startY = 0;
+
 const intro = document.getElementById("intro");
 const invite = document.getElementById("invite");
 const music = document.getElementById("bgMusic");
@@ -274,14 +278,15 @@ window.addEventListener("touchend", e=>{
   let endY = e.changedTouches[0].clientY;
 
   if(startY > endY + 50){
-    intro.style.transform = "translateY(-100%)";
-    intro.style.opacity = "0";
 
-    music.play().catch(()=>{});
+    intro.style.opacity = "0";
+    intro.style.transform = "scale(1.1)";
 
     setTimeout(()=>{
       invite.classList.add("show");
-    }, 700);
+    }, 600);
+
+    music.play().catch(()=>{});
   }
 });
 </script>
