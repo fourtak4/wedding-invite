@@ -8,43 +8,72 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+  scroll-snap-type:y mandatory;
+}
 
 body{
-  height:100vh;
-  overflow:hidden;
   background:#000;
   color:#fff;
   font-family:'Inter',sans-serif;
+  overflow-y:auto;
+  height:100vh;
 }
 
-/* PARTICLES */
+/* 🌫 SLOW FLOATING LIGHT PARTICLES */
 .particle{
-  position:absolute;
+  position:fixed;
   width:6px;
   height:6px;
   background:#fff;
   border-radius:50%;
-  opacity:0.3;
-  animation:floatUp 6s linear infinite;
+  opacity:0.15;
+  animation:floatUp 14s linear infinite;
 }
 
 @keyframes floatUp{
-  from{transform:translateY(100vh);opacity:0;}
-  to{transform:translateY(-10vh);opacity:0.6;}
+  from{transform:translateY(100vh); opacity:0;}
+  to{transform:translateY(-10vh); opacity:0.4;}
+}
+
+/* 💎 SPARKLES */
+.sparkle{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:#fff;
+  border-radius:50%;
+  pointer-events:none;
+  animation:sparkleAnim 0.8s ease-out forwards;
+}
+
+@keyframes sparkleAnim{
+  0%{transform:scale(1); opacity:1;}
+  100%{transform:scale(3); opacity:0;}
+}
+
+/* FULL SECTIONS (iPhone style scroll) */
+section{
+  height:100vh;
+  scroll-snap-align:start;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  padding:30px;
 }
 
 /* INTRO */
 #intro{
-  position:fixed;
-  inset:0;
   background:radial-gradient(circle,#111,#000);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  transition:1s ease;
-  z-index:10;
 }
 
 .flower{
@@ -67,37 +96,23 @@ body{
 
 /* INVITE BACKGROUND */
 #invite{
-  position:fixed;
-  inset:0;
   background:
     radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 60%),
     radial-gradient(circle at bottom, rgba(255,255,255,0.04), transparent 70%),
     #000;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:30px;
-  opacity:0;
-  transform:translateY(30px);
-  transition:1s ease;
+  position:relative;
 }
 
+/* TEXTURE */
 #invite::after{
   content:"";
   position:absolute;
   inset:0;
   background-image:url('https://www.transparenttextures.com/patterns/asfalt-light.png');
   opacity:0.08;
-  pointer-events:none;
 }
 
-#invite.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
+/* CONTENT */
 .title{
   font-family:'Playfair Display',serif;
   font-size:34px;
@@ -110,7 +125,6 @@ body{
   margin-bottom:15px;
 }
 
-/* IMAGE (NO CROP) */
 .image{
   width:260px;
   max-width:90%;
@@ -154,49 +168,67 @@ body{
   text-decoration:none;
 }
 
-/* MOBILE ONLY */
-@media(min-width:768px){
-body::before{
-  content:"Open on mobile for best experience";
+/* MUSIC BUTTON */
+.music{
   position:fixed;
-  inset:0;
-  background:#000;
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
+  top:15px;
+  right:15px;
+  background:#111;
+  border:1px solid #333;
+  padding:8px 12px;
+  font-size:11px;
+  border-radius:20px;
+  z-index:10;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
+<!-- 🎶 MUSIC -->
 <audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6c1b1f3.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6c1b1f3.mp3">
 </audio>
 
-<!-- PARTICLES -->
+<button class="music" onclick="document.getElementById('bgMusic').play()">
+🎶 Music
+</button>
+
+<!-- 🌫 PARTICLES -->
 <script>
-for(let i=0;i<25;i++){
+for(let i=0;i<20;i++){
   let p=document.createElement('div');
   p.className='particle';
   p.style.left=Math.random()*100+'vw';
-  p.style.animationDuration=(3+Math.random()*5)+'s';
+  p.style.animationDuration=(10+Math.random()*10)+'s';
   document.body.appendChild(p);
 }
 </script>
 
+<!-- 💎 SPARKLES -->
+<script>
+document.addEventListener("click", function(e){
+  for(let i=0;i<6;i++){
+    let s=document.createElement("div");
+    s.className="sparkle";
+    s.style.left=e.clientX+'px';
+    s.style.top=e.clientY+'px';
+    s.style.transform=`translate(${(Math.random()-0.5)*50}px, ${(Math.random()-0.5)*50}px)`;
+    document.body.appendChild(s);
+
+    setTimeout(()=>s.remove(),800);
+  }
+});
+</script>
+
 <!-- INTRO -->
-<div id="intro">
+<section id="intro">
   <div class="flower">❀</div>
-  <div class="swipe">SWIPE UP</div>
-</div>
+  <div class="swipe">SCROLL TO OPEN</div>
+</section>
 
 <!-- INVITE -->
-<div id="invite">
+<section id="invite">
   <div class="title">ARIANE & ALDEN</div>
   <div class="sub">together with their families</div>
 
@@ -215,33 +247,14 @@ for(let i=0;i<25;i++){
   <a class="rsvp" href="https://docs.google.com/forms/" target="_blank">
     Confirm Attendance
   </a>
-</div>
+</section>
 
 <script>
-let startY = 0;
-const intro = document.getElementById("intro");
-const invite = document.getElementById("invite");
 const music = document.getElementById("bgMusic");
 
-window.addEventListener("touchstart", e=>{
-  startY = e.touches[0].clientY;
-});
-
-window.addEventListener("touchend", e=>{
-  let endY = e.changedTouches[0].clientY;
-
-  if(startY > endY + 50){
-    intro.style.transform = "translateY(-100%)";
-    intro.style.opacity = "0";
-
-    // PLAY MUSIC AFTER SWIPE
-    music.play().catch(()=>{});
-
-    setTimeout(()=>{
-      invite.classList.add("show");
-    }, 700);
-  }
-});
+document.addEventListener("click", ()=>{
+  music.play().catch(()=>{});
+}, {once:true});
 </script>
 
 </body>
