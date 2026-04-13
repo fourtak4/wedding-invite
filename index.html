@@ -14,40 +14,31 @@
   box-sizing:border-box;
 }
 
-/* 🚨 LOCK SCROLL */
+/* 🚨 NO SCROLL */
 html, body{
   width:100%;
   height:100%;
   overflow:hidden;
   position:fixed;
-  background:#000;
-  color:#fff;
   font-family:'Inter',sans-serif;
 }
 
-/* 🌫 BACKGROUND */
-body{
-  background:
-    radial-gradient(circle at top, rgba(255,255,255,0.07), transparent 60%),
-    radial-gradient(circle at bottom, rgba(255,255,255,0.05), transparent 70%),
-    linear-gradient(180deg, #050505, #000);
-}
-
-/* 🌸 INTRO */
+/* ================= INTRO ================= */
 #intro{
   position:fixed;
   inset:0;
+  background:#000;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  background:radial-gradient(circle,#111,#000);
-  z-index:100;
+  z-index:10;
   transition:0.8s ease;
 }
 
 .flower{
   font-size:75px;
+  color:#fff;
   animation:float 2.5s infinite ease-in-out;
 }
 
@@ -63,93 +54,82 @@ body{
   color:#aaa;
 }
 
-/* 💍 INVITE SCREEN */
+/* ================= INVITE BACKGROUND ================= */
 #invite{
   position:fixed;
   inset:0;
+
+  /* 💍 IMAGE AS BACKGROUND */
+  background-image:url("https://i.imgur.com/376gkH5.jpeg");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:30px;
 
   opacity:0;
-  transform:translateY(25px);
-  transition:0.8s ease;
-
+  transform:scale(1.05);
+  transition:1s ease;
   pointer-events:none;
-  z-index:50;
 }
 
-#invite.show{
-  opacity:1;
-  transform:translateY(0);
-  pointer-events:auto;
-}
-
-/* 🌫 CLEAN BACKGROUND OVERLAY */
+/* DARK OVERLAY FOR TEXT READABILITY */
 #invite::before{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 65%);
+  background:rgba(0,0,0,0.65);
   z-index:0;
-  pointer-events:none;
 }
 
-/* CONTENT ABOVE EVERYTHING */
+#invite.show{
+  opacity:1;
+  transform:scale(1);
+  pointer-events:auto;
+}
+
+/* CONTENT ALWAYS ABOVE IMAGE */
 #invite > *{
   position:relative;
   z-index:2;
+  color:#fff;
 }
 
-/* 💎 NAME FIX (THIS FIXES YOUR ISSUE) */
+/* ================= TEXT ================= */
 .title{
   font-family:'Playfair Display',serif;
-  font-size:36px;
+  font-size:38px;
   letter-spacing:6px;
-  color:#fff;
-  text-shadow:0 3px 15px rgba(0,0,0,0.9);
+  text-shadow:0 2px 20px rgba(0,0,0,0.8);
 }
 
-/* SUB TEXT */
 .sub{
   font-size:12px;
-  color:#aaa;
-  margin-bottom:12px;
+  color:#ccc;
+  margin-bottom:15px;
 }
 
-/* IMAGE */
-.image{
-  width:260px;
-  max-width:90%;
-  border-radius:16px;
-  margin:15px 0;
-  filter:grayscale(100%) contrast(130%) brightness(85%);
-  border:1px solid #333;
-}
-
-/* DETAILS */
 .details{
+  margin-top:15px;
   font-size:14px;
-  color:#ddd;
   line-height:1.8;
-  background:rgba(255,255,255,0.05);
+  background:rgba(255,255,255,0.08);
   padding:16px;
   border-radius:12px;
+  backdrop-filter:blur(6px);
 }
 
-/* QUOTE */
 .quote{
   margin-top:15px;
   font-style:italic;
-  color:#777;
+  color:#bbb;
   font-size:13px;
 }
 
-/* BUTTON */
 .rsvp{
   margin-top:20px;
   padding:12px 24px;
@@ -170,39 +150,7 @@ body{
   padding:8px 10px;
   font-size:11px;
   border-radius:20px;
-  z-index:200;
-}
-
-/* 🌫 PARTICLES */
-.particle{
-  position:fixed;
-  width:4px;
-  height:4px;
-  background:#fff;
-  border-radius:50%;
-  opacity:0.08;
-  animation:floatUp 10s linear infinite;
-}
-
-@keyframes floatUp{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
-}
-
-/* 💎 SPARKLES */
-.sparkle{
-  position:fixed;
-  width:5px;
-  height:5px;
-  background:#fff;
-  border-radius:50%;
-  pointer-events:none;
-  animation:spark 0.7s ease-out forwards;
-}
-
-@keyframes spark{
-  0%{opacity:1;transform:scale(1);}
-  100%{opacity:0;transform:scale(3);}
+  z-index:20;
 }
 </style>
 </head>
@@ -218,17 +166,6 @@ body{
 🎶 Music
 </button>
 
-<!-- 🌫 PARTICLES -->
-<script>
-for(let i=0;i<18;i++){
-  let p=document.createElement('div');
-  p.className='particle';
-  p.style.left=Math.random()*100+'vw';
-  p.style.animationDuration=(8+Math.random()*6)+'s';
-  document.body.appendChild(p);
-}
-</script>
-
 <!-- 🌸 INTRO -->
 <div id="intro">
   <div class="flower">❀</div>
@@ -239,8 +176,6 @@ for(let i=0;i<18;i++){
 <div id="invite">
   <div class="title">ARIANE & ALDEN</div>
   <div class="sub">together with their families</div>
-
-  <img class="image" src="https://i.imgur.com/376gkH5.jpeg">
 
   <div class="details">
     📅 January 4, 2027<br>
@@ -253,7 +188,7 @@ for(let i=0;i<18;i++){
   <a class="rsvp" href="#">Confirm Attendance</a>
 </div>
 
-<!-- 💍 SWIPE LOGIC FIXED -->
+<!-- SWIPE LOGIC -->
 <script>
 let startY = 0;
 
@@ -270,7 +205,7 @@ window.addEventListener("touchend", e=>{
 
   if(startY > endY + 50){
     intro.style.opacity = "0";
-    intro.style.transform = "scale(1.1)";
+    intro.style.transform = "scale(1.2)";
 
     setTimeout(()=>{
       intro.style.display = "none";
@@ -278,18 +213,6 @@ window.addEventListener("touchend", e=>{
     }, 500);
 
     music.play().catch(()=>{});
-  }
-});
-
-/* 💎 sparkles */
-document.addEventListener("click", e=>{
-  for(let i=0;i<4;i++){
-    let s=document.createElement("div");
-    s.className="sparkle";
-    s.style.left=e.clientX+"px";
-    s.style.top=e.clientY+"px";
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),600);
   }
 });
 </script>
